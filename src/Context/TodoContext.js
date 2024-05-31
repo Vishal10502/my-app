@@ -6,17 +6,28 @@ export const TodoContext = createContext();
 
 //Getting data from local storage
 
-const getdata = () => {
-  const todos = localStorage.getItem("todos");
-  if (todos) {
-    return JSON.parse(todos);
-  }
-  return [];
-};
+// const getdata = () => {
+//   const todos = localStorage.getItem("todos");
+//   if (todos) {
+//     return JSON.parse(todos);
+//   }
+//   return [];
+// };
+function getTodos() {
+  const todosData = localStorage.getItem('todos'); // Assuming you're getting the data from localStorage
 
+  try {
+    const todos = JSON.parse(todosData);
+    return todos;
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
+    console.log('Received data:', todosData); // Log the data to see what went wrong
+    return []; // Return an empty array or a default value to avoid breaking your app
+  }
+}
 
 //Create initial state
-const initialState = getdata;
+const initialState = getTodos;
 
 
 
